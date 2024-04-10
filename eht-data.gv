@@ -23,6 +23,8 @@ digraph G {
 	"EHT Theory Team" -> "MIT HPC Cluster"             [lhead=cluster7];
 	"EHT Theory Team" -> "Arizona Kubernetes Cluster"  [lhead=cluster8];
 
+	"Telescope Operators" -> "EHT L1 Team" -> "EHT L2 Team" -> "EHT Imaging Team" -> "EHT Modeling Team" -> "EHT Theory Team" [ style=invis, weight=10 ];
+
 	{
 		rank = same;
 		"Telescope Operators";
