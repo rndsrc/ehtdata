@@ -77,12 +77,14 @@ digraph G {
 		"Harvard HPC Compute Nodes" -> "Harvard Parallel File System";
 	}
 
+	edge [color=blue, style=solid, label=Infiniband];
+	"Harvard Parallel File System"  -> "MIT Parallel File System" [ weight=12 ];
+
 	edge [color=red, style=solid, label=Internet];
+	"Harvard Parallel File System"  -> "Ceph Storage Cluster";
 
 	"Haystack Parallel File System" -> "MIT Parallel File System";
 	"Haystack Parallel File System" -> "Ceph Storage Cluster";
-	"Harvard Parallel File System"  -> "MIT Parallel File System";
-	"Harvard Parallel File System"  -> "Ceph Storage Cluster";
 
 	subgraph cluster7 {
 		label = "MIT HPC Cluster";
