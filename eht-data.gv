@@ -1,116 +1,71 @@
 digraph G {
 	compound=true;
 
-	edge [color=red, label=Internet];
-
+	edge [color=red, style=dashed, label=Internet];
 	"Telescope Operators" -> "Telescope Control 1";
 	"Telescope Operators" -> "Telescope Control 2";
-	"Telescope Operators" -> "Telescope Control 3";
-	"Telescope Operators" -> "Telescope Control 4";
+	"Telescope Operators" -> "EHT L1 Team" -> "EHT L2 Team" -> "EHT Scientists" [ style=invis, weight=10 ];
 
 	"EHT L1 Team" -> "Haystack HPC Compute Nodes" [lhead=cluster5];
 	"EHT L1 Team" -> "Harvard HPC Compute Nodes"  [lhead=cluster6];
+	"EHT L1 Team" -> "GitHub";
 
-	"EHT L2 Team" -> "MIT HPC Cluster"             [lhead=cluster7];
-	"EHT L2 Team" -> "Arizona Kubernetes Cluster"  [lhead=cluster8];
+	"EHT L2 Team" -> "MIT HPC Cluster"            [lhead=cluster7];
+	"EHT L2 Team" -> "Arizona Kubernetes Cluster" [lhead=cluster8];
+	"EHT L2 Team" -> "GitHub";
 
-	"EHT Imaging Team" -> "MIT HPC Cluster"             [lhead=cluster7];
-	"EHT Imaging Team" -> "Arizona Kubernetes Cluster"  [lhead=cluster8];
-
-	"EHT Modeling Team" -> "MIT HPC Cluster"             [lhead=cluster7];
-	"EHT Modeling Team" -> "Arizona Kubernetes Cluster"  [lhead=cluster8];
-
-	"EHT Theory Team" -> "MIT HPC Cluster"             [lhead=cluster7];
-	"EHT Theory Team" -> "Arizona Kubernetes Cluster"  [lhead=cluster8];
-
-	"Telescope Operators" -> "EHT L1 Team" -> "EHT L2 Team" -> "EHT Imaging Team" -> "EHT Modeling Team" -> "EHT Theory Team" [ style=invis, weight=10 ];
+	"EHT Scientists" -> "MIT HPC Cluster"            [lhead=cluster7];
+	"EHT Scientists" -> "Arizona Kubernetes Cluster" [lhead=cluster8];
+	"EHT Scientists" -> "GitHub";
 
 	{
 		rank = same;
 		"Telescope Operators";
 		"EHT L1 Team";
 		"EHT L2 Team";
-		"EHT Imaging Team";
-		"EHT Modeling Team";
-		"EHT Theory Team";
+		"EHT Scientists";
 	}
+
+	edge [color=red, style=solid, label="Internet; GitOps"];
+	"GitHub" -> "Haystack Playback 1"        [lhead=cluster5];
+	"GitHub" -> "Harvard Playback 1"         [lhead=cluster6];
+	"GitHub" -> "MIT Parallel File System"   [lhead=cluster7];
+	"GitHub" -> "Arizona Kubernetes Cluster" [lhead=cluster8];
 
 	subgraph cluster1 {
 		label = "Site 1";
-		edge [color=blue, label=LAN];
+		edge [color=blue, style=dotted, label=LAN];
 		"Telescope Control 1"  -> "Antenna 1";
-		edge [color=blue, label="2 x 10G Optical Ethernet"];
+		edge [color=blue, style=bold, label="2 x 10G Optical Ethernet"];
 		"Antenna 1"  -> "Recorder 1";
-		edge [color=blue, label="2 x mini-SAS"];
+		edge [color=blue, style=bold, label="2 x mini-SAS"];
 		"Recorder 1" -> "Disk Module 1.1";
 		"Recorder 1" -> "Disk Module 1.2";
-		"Recorder 1" -> "Disk Module 1.3";
-		"Recorder 1" -> "Disk Module 1.4";
 	}
 	subgraph cluster2 {
 		label = "Site 2";
-		edge [color=blue, label=LAN];
+		edge [color=blue, style=dotted, label=LAN];
 		"Telescope Control 2"  -> "Antenna 2";
-		edge [color=blue, label="2 x 10G Optical Ethernet"];
+		edge [color=blue, style=bold, label="2 x 10G Optical Ethernet"];
 		"Antenna 2"  -> "Recorder 2";
-		edge [color=blue, label="2 x mini-SAS"];
+		edge [color=blue, style=bold, label="2 x mini-SAS"];
 		"Recorder 2" -> "Disk Module 2.1";
 		"Recorder 2" -> "Disk Module 2.2";
-		"Recorder 2" -> "Disk Module 2.3";
-		"Recorder 2" -> "Disk Module 2.4";
-	}
-	subgraph cluster3 {
-		label = "Site 3";
-		edge [color=blue, label=LAN];
-		"Telescope Control 3"  -> "Antenna 3";
-		edge [color=blue, label="2 x 10G Optical Ethernet"];
-		"Antenna 3"  -> "Recorder 3";
-		edge [color=blue, label="2 x mini-SAS"];
-		"Recorder 3" -> "Disk Module 3.1";
-		"Recorder 3" -> "Disk Module 3.2";
-		"Recorder 3" -> "Disk Module 3.3";
-		"Recorder 3" -> "Disk Module 3.4";
-	}
-	subgraph cluster4 {
-		label = "Site 4";
-		edge [color=blue, label=LAN];
-		"Telescope Control 4"  -> "Antenna 4";
-		edge [color=blue, label="2 x 10G Optical Ethernet"];
-		"Antenna 4"  -> "Recorder 4";
-		edge [color=blue, label="2 x mini-SAS"];
-		"Recorder 4" -> "Disk Module 4.1";
-		"Recorder 4" -> "Disk Module 4.2";
-		"Recorder 4" -> "Disk Module 4.3";
-		"Recorder 4" -> "Disk Module 4.4";
 	}
 
-	edge [color=darkgreen, label="Physical Shipments"];
+	edge [color=darkgreen, style=bold, label="Physical Shipments"];
 
 	"Disk Module 1.1" -> "Haystack Playback 1";
-	"Disk Module 1.2" -> "Haystack Playback 2";
-	"Disk Module 2.1" -> "Haystack Playback 3";
-	"Disk Module 2.2" -> "Haystack Playback 4";
-	"Disk Module 3.1" -> "Haystack Playback 1";
-	"Disk Module 3.2" -> "Haystack Playback 2";
-	"Disk Module 4.1" -> "Haystack Playback 3";
-	"Disk Module 4.2" -> "Haystack Playback 4";
+	"Disk Module 2.1" -> "Haystack Playback 2";
 
-	"Disk Module 1.3" -> "Harvard Playback 1";
-	"Disk Module 1.4" -> "Harvard Playback 2";
-	"Disk Module 2.3" -> "Harvard Playback 3";
-	"Disk Module 2.4" -> "Harvard Playback 4";
-	"Disk Module 3.3" -> "Harvard Playback 1";
-	"Disk Module 3.4" -> "Harvard Playback 2";
-	"Disk Module 4.3" -> "Harvard Playback 3";
-	"Disk Module 4.4" -> "Harvard Playback 4";
+	"Disk Module 1.2" -> "Harvard Playback 1";
+	"Disk Module 2.2" -> "Harvard Playback 2";
 
 	subgraph cluster5 {
 		label = "Haystack Correlator";
 		edge [color=blue, label=Infiniband];
 		"Haystack Playback 1" -> "Haystack HPC Compute Nodes";
 		"Haystack Playback 2" -> "Haystack HPC Compute Nodes";
-		"Haystack Playback 3" -> "Haystack HPC Compute Nodes";
-		"Haystack Playback 4" -> "Haystack HPC Compute Nodes";
 		"Haystack HPC Compute Nodes" -> "Haystack Parallel File System";
 	}
 
@@ -119,12 +74,10 @@ digraph G {
 		edge [color=blue, label=Infiniband];
 		"Harvard Playback 1" -> "Harvard HPC Compute Nodes";
 		"Harvard Playback 2" -> "Harvard HPC Compute Nodes";
-		"Harvard Playback 3" -> "Harvard HPC Compute Nodes";
-		"Harvard Playback 4" -> "Harvard HPC Compute Nodes";
 		"Harvard HPC Compute Nodes" -> "Harvard Parallel File System";
 	}
 
-	edge [color=red, label=Internet];
+	edge [color=red, style=solid, label=Internet];
 
 	"Haystack Parallel File System" -> "MIT Parallel File System";
 	"Haystack Parallel File System" -> "Ceph Storage Cluster";
@@ -133,13 +86,15 @@ digraph G {
 
 	subgraph cluster7 {
 		label = "MIT HPC Cluster";
-		edge [color=blue, label=Infiniband];
+		edge [color=blue, style=solid, label=Infiniband];
 		"MIT Parallel File System" -> "MIT HPC Cluster";
 	}
 
 	subgraph cluster8 {
 		label = "Arizona Kubernetes Cluster";
-		edge [color=blue, label="40G Ethernet"];
+		edge [color=blue, style=solid, label="40G Ethernet"];
 		"Ceph Storage Cluster" -> "Arizona Kubernetes Cluster";
 	}
+
+	edge [color=red, style=solid, label="Internet; sync"];
 }
